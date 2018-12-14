@@ -1,0 +1,25 @@
+{
+  "job_id": "dwr.api2.thaiweather.net.rain.converter02",
+  "active": "true",
+  "data_in": {
+    "type": "input"
+  },
+  "data_transform": [
+    {
+      "type": "filter-duplicate",
+      "param": {
+        "name": "dwr.api2.thaiwater.net.${data.station_name}",
+        "key": "${data.datetime}"
+      }
+    }
+  ],
+  "data_out": {
+    "type": "call",
+    "param": {
+      "to": [
+        "dwr.api2.thaiweather.net.rain12hour.storage",
+        "dwr.api2.thaiweather.net.rain24hour.storage"
+      ]
+    }
+  }
+}

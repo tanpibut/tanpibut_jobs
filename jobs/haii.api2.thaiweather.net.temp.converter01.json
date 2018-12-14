@@ -1,0 +1,35 @@
+{
+  "job_id": "haii.api2.thaiweather.net.temp.converter01",
+  "active": "true",
+  "data_in": {
+    "type": "http-request",
+    "param": {
+      "url": "http://api2.thaiwater.net:9200/api/v1/thaiwater30/api_service?mid=105&eid=Qe1IrS7TTqGkvARqk6ZdHKFTpyGkUeHcEO94sjpCQ-WP65Jkwo5uGpgd4YAwi4mRKNUpKDWVE8JEBe7s2xjmyQ",
+      "encoding": "json"
+    }
+  },
+  "data_transform": [
+    {
+      "type": "transform",
+      "param": {
+        "script": [
+          "let station_detail = src.data.reduce((final, current) => { let newKey = current.id; if (!final[newKey]) final[newKey] = {}; final[newKey]={lat:current.tele_station_lat, long:current.tele_station_long, station_name:current.tele_station_oldcode}; return final; }, {})",
+          "let station_temp = src.meta.data",
+          "let staion_not_found = {}",
+          "for(let key in station_temp){ if(station_temp.hasOwnProperty(key)){ if(station_detail.hasOwnProperty(key)){ station_temp[key].lat = station_detail[key].lat; station_temp[key].long = station_detail[key].long; station_temp[key].station_name = station_detail[key].station_name; } else { staion_not_found[key] = station_temp[key] } } }",
+          "data = Object.keys(station_temp).map(function(key) { return station_temp[key]; });",
+          "meta = null"
+        ]
+      }
+    }
+  ],
+  "data_out": {
+    "type": "call",
+    "param": {
+      "to": [
+        "haii.api2.thaiweather.net.temp.converter02"
+      ]
+    }
+  },
+  "_vo": ""
+}

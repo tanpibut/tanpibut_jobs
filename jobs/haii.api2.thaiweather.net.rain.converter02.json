@@ -1,0 +1,24 @@
+{
+  "job_id": "haii.api2.thaiweather.net.rain.converter02",
+  "active": "true",
+  "data_in": {
+    "type": "input"
+  },
+  "data_transform": [
+    {
+      "type": "filter-duplicate",
+      "param": {
+        "name": "haii.api2.thaiwater.net.${data.station_name}",
+        "key": "${data.datetime}"
+      }
+    }
+  ],
+  "data_out": {
+    "type": "call",
+    "param": {
+      "to": [
+        "haii.api2.thaiweather.net.rain1hour.storage"
+      ]
+    }
+  }
+}

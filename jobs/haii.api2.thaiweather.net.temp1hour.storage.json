@@ -1,0 +1,46 @@
+{
+  "job_id": "haii.api2.thaiweather.net.temp1hour.storage",
+  "active": "true",
+  "data_in": {
+    "type": "input"
+  },
+  "data_transform": [
+    {
+      "type": "filter-condition",
+      "param": {
+        "condition": "data.value == null"
+      }
+    },
+    {
+      "type": "filter-duplicate",
+      "param": {
+        "name": "haii.api2.thatweather.net.temp1hour.storage.${data.station_name}",
+        "key": "${data.datetime.slice(0,data.datetime.length-6)}"
+      }
+    },
+    {
+      "type": "transform",
+      "param": {
+        "script": [
+          "obs = {object_type:'Tanpibut'}",
+          "obs.station_id = data.station_name",
+          "obs.data_type = '6'",
+          "obs.latitude = data.lat",
+          "obs.longitude = data.long",
+          "obs.unit = 'C'",
+          "obs.value_type = 'numeric'",
+          "obs.type = 'Temperature'",
+          "obs.altitude = ''",
+          "obs.data = [{'observeddatetime':data.datetime.slice(0,data.datetime.length-6)+':00:00' ,'value':data.value+''}]",
+          "data = obs"
+        ]
+      }
+    }
+  ],
+  "data_out": {
+    "type": "storage",
+    "param": {
+      "storage_name": "tpb.haii.thaiweather.temp1hour.${data.station_id}"
+    }
+  }
+}

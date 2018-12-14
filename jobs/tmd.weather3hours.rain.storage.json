@@ -1,0 +1,31 @@
+{
+  "job_id": "tmd.weather3hours.rain.storage",
+  "active": "true",
+  "data_in": {
+    "type": "input"
+  },
+  "data_transform": {
+    "type": "transform",
+    "param": {
+      "script": [
+        "data = {object_type:'Tanpibut'}",
+        "data.station_id = src.data.WmoNumber",
+        "data.data_type = '0'",
+        "data.object_type = 'Tanpibut'",
+        "data.latitude = src.data.Latitude.Value",
+        "data.longitude = src.data.Longitude.Value",
+        "data.unit = 'mm.'",
+        "data.value_type = 'numeric'",
+        "data.type = 'Rain'",
+        "data.altitude = ''",
+        "data.data = [{'observeddatetime':src.data.Observe.Time,'value':src.data.Observe.Rainfall.Value+''}]"
+      ]
+    }
+  },
+  "data_out": {
+    "type": "storage",
+    "param": {
+      "storage_name": "tpb.tmd.weather3hours.rain.${data.station_id}"
+    }
+  }
+}

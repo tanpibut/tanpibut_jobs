@@ -1,0 +1,39 @@
+{
+  "job_id": "dwr.api2.thaiweather.net.rain24hour.storage",
+  "active": "true",
+  "data_in": {
+    "type": "input"
+  },
+  "data_transform": [
+    {
+      "type": "filter-condition",
+      "param": {
+        "condition": "data.rainfall24h == null"
+      }
+    },
+    {
+      "type": "transform",
+      "param": {
+        "script": [
+          "obs = {object_type:'Tanpibut'}",
+          "obs.station_id = data.station_name",
+          "obs.data_type = '1'",
+          "obs.latitude = data.lat",
+          "obs.longitude = data.long",
+          "obs.unit = 'mm.'",
+          "obs.value_type = 'numeric'",
+          "obs.type = 'Rain'",
+          "obs.altitude = ''",
+          "obs.data = [{'observeddatetime':data.datetime , 'value':data.rainfall24h+''}]",
+          "data = obs"
+        ]
+      }
+    }
+  ],
+  "data_out": {
+    "type": "storage",
+    "param": {
+      "storage_name": "tpb.dwr.thaiweather.rain24hour.${data.station_id}"
+    }
+  }
+}

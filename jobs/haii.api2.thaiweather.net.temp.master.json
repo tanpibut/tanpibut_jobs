@@ -1,0 +1,36 @@
+{
+  "job_id": "haii.api2.thaiweather.net.temp.master",
+  "active": "true",
+  "trigger": {
+    "type": "cron",
+    "cmd": "*/15 * * * *"
+  },
+  "data_in": {
+    "type": "http-request",
+    "param": {
+      "url": "http://api2.thaiwater.net:9200/api/v1/thaiwater30/api_service?mid=99&eid=7NXxQV36n7BUU4RWvTzXrqyPzX5z4pDZM8sqf9r9mOJbRlQ-So8cmzcK9mDq7BccZLS5ByU6r0xmLl5Th_Z-qg",
+      "encoding": "json"
+    }
+  },
+  "data_transform": [
+    {
+      "type": "transform",
+      "param": {
+        "script": [
+          "meta.count = src.data.length",
+          "data = src.data.reduce((final, current) => { let newKey = current.tele_station_id; if (!final[newKey]) final[newKey] = {}; final[newKey]={value:current.temp_value, datetime:current.temp_datetime.replace(/T/, ' ').replace(/\\+.+/, '')}; return final; }, {})",
+          "meta.data = data"
+        ]
+      }
+    }
+  ],
+  "data_out": {
+    "type": "call",
+    "param": {
+      "to": [
+        "haii.api2.thaiweather.net.temp.converter01"
+      ]
+    }
+  },
+  "_vo": ""
+}

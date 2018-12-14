@@ -1,0 +1,37 @@
+{
+  "job_id": "tmd.weather3hours.converter",
+  "active": "true",
+  "data_in": {
+    "type": "input"
+  },
+  "data_transform": [
+    {
+      "type": "transform",
+      "param": {
+        "script": [
+          "let date=src.data.Observe.Time.substring(0,src.data.Observe.Time.indexOf(' ')).split('/')",
+          "let time=src.data.Observe.Time.substring(src.data.Observe.Time.indexOf(' ')+1).split(':')",
+          "if(date[1].length<2) date[1]='0'+date[1] ",
+          "src.data.Observe.Time = date[2]+'-'+date[1]+'-'+date[0]+' '+time[0]+':'+time[1]+':'+time[2]",
+          "data = src.data"
+        ]
+      }
+    },
+    {
+      "type": "filter-duplicate",
+      "param": {
+        "name": "tmd.weather3hours.${data.WmoNumber}",
+        "key": "${data.Observe.Time}"
+      }
+    }
+  ],
+  "data_out": {
+    "type": "call",
+    "param": {
+      "to": [
+        "tmd.weather3hours.rain.storage",
+        "tmd.weather3hours.temperature.storage"
+      ]
+    }
+  }
+}

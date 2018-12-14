@@ -1,0 +1,31 @@
+{
+  "job_id": "tmd.weather3hours.temperature.storage",
+  "active": "true",
+  "data_in": {
+    "type": "input"
+  },
+  "data_transform": {
+    "type": "transform",
+    "param": {
+      "script": [
+        "data = {object_type:'Tanpibut'}",
+        "data.station_id = src.data.WmoNumber",
+        "data.data_type = '6'",
+        "data.object_type = 'Tanpibut'",
+        "data.latitude = src.data.Latitude.Value",
+        "data.longitude = src.data.Longitude.Value",
+        "data.unit = 'C'",
+        "data.value_type = 'numeric'",
+        "data.type = 'Temperature'",
+        "data.altitude = ''",
+        "data.data = [{'observeddatetime':src.data.Observe.Time,'value':src.data.Observe.Temperature.Value+''}]"
+      ]
+    }
+  },
+  "data_out": {
+    "type": "storage",
+    "param": {
+      "storage_name": "tpb.tmd.weather3hours.temperature.${data.station_id}"
+    }
+  }
+}
