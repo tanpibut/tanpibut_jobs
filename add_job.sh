@@ -1,5 +1,5 @@
 #!/bin/bash
-BIGSTREAM_URL=bigstream:19980
+BIGSTREAM_URL=localhost:19980
 
 for file in jobs/*.json; do
     echo "$file"
