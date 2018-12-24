@@ -1,9 +1,9 @@
 var pg = require('pg');
 var config = {
-    user: "igrid",
-    database: "tanpibut",
-    password: "vkiNfu:uigrid",
-    host: "localhost",
+    user: "USERNAME",
+    database: "DATABASE_NAME",
+    password: "PASSWORD",
+    host: "DATABASE_HOST",
     port: 5432,
     max: 300,
     idleTimeoutMillis: 30000,
