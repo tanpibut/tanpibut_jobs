@@ -1,0 +1,32 @@
+{
+    "job_id": "",
+    "active": true,
+    "job_timeout": "600000",
+    "data_in": {
+        "type": "tanpibut",
+        "profile": {
+            "station_id": "",
+            "latitude": "",
+            "longitude": ""
+        },
+        "param": {
+            "recover": false,
+            "url": "",
+            "appkey": "",
+            "station_id": "",
+            "data_type": { "type": "", "name": "", "node_id": "" },
+            "init_observed_date": "",
+            "init_observed_time": "",
+            "limit": 5
+        }
+    },
+    "data_transform": {
+        "type": "tanpibut"
+    },
+    "data_out": {
+        "type": "",
+        "param": {
+            "storage_name": ""
+        }
+    }
+}

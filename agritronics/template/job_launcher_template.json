@@ -1,0 +1,23 @@
+{
+    "job_id": "tpb.launcher",
+    "active": "true",
+    "trigger": {
+        "type": "cron",
+        "cmd": "2,32 * * * *"
+    },
+    "data_in": {
+        "type": "input",
+        "param": {
+            "object": "httpdata"
+        }
+    },
+    "data_transform": {
+        "type": "noop"
+    },
+    "data_out": {
+        "type": "call",
+        "param": {
+            "to": []
+        }
+    }
+}

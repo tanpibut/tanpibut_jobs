@@ -1,0 +1,15 @@
+{
+    "endpoint": "http://122.155.1.142/ws/get2.php",
+    "appkey": "0c5a295bd8c07a0806411b79e1fd73",
+    "jobgen": {
+        "recover": false,
+        "dataTypeName": ["Temperature", "Rain", "Humidity", "SignalQuality", "BatteryVoltage"],
+        "init_observed_date": "2018-12-01",
+        "init_observed_time": "00:00:00",
+        "storage_name_prefix": "tpb.agritronics",
+        "limit": 20
+    },
+    "bigstream": {
+        "endpoint": "http://bs.tanpibut.org:19980/v1/jobs"
+    }
+}
