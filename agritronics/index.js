@@ -78,7 +78,7 @@ function initStation() {
                 }
 
                 let type_set = ["temperature", "rain", "humidity"]
-                request(`http://bs.tanpibut.org/v1/jobs/`, function(error, response, body) {
+                request(conf.bigstream.endpoint, function(error, response, body) {
                     if (response.statusCode == 200) {
                         let jobs = JSON.parse(body)
 
